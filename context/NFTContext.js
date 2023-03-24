@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
+import ReactAudioPlayer from "react-audio-player";
+
 // import { create } from 'ipfs-http-client';
 
 import { Web3Storage } from 'web3.storage';
