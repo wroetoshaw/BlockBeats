@@ -6,7 +6,7 @@ const Input = ({ inputType, title, placeholder, handleClick }) => {
   const { nftCurrency } = useContext(NFTContext);
   return (
     <div className="mt-10 w-full">
-      <p className="font-cinzelDecorative dark:text-white text-nft-black-1 font-bold text-xl">{title}</p>
+      <p className="font-sans-serif dark:text-white text-nft-black-1 font-bold text-xl">{title}</p>
 
       {inputType === 'number' ? (
         <div

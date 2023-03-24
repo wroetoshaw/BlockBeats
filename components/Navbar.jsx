@@ -28,7 +28,7 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen }) => {
             setActive(item);
             if (isMobile) setIsOpen(false);
           }}
-          className={`flex flex-row items-center font-dancingScript font-medium text-2xl dark:hover:text-white hover:text-nft-dark mx-3 ${active === item ? 'dark:text-white text-nft-black' : 'dark:text-nft-gray-3 text-nft-gray-2'}`}
+          className={`flex flex-row items-center font-sans-serif text-2xl dark:hover:text-white hover:text-nft-dark mx-3 ${active === item ? 'dark:text-white text-nft-black' : 'dark:text-nft-gray-3 text-nft-gray-2'}`}
         >
           <Link href={generateLink(i)}>{item}</Link>
         </li>
@@ -84,14 +84,14 @@ const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
   const [active, setActive] = useState('Explore NFTs');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     checkActive(active, setActive, router);
   }, [router.pathname]);
 
   useEffect(() => {
-    setTheme('dark');
+    setTheme('light');
   }, []);
 
   return (
@@ -100,7 +100,7 @@ const Navbar = () => {
         <Link href="/">
           <div className="flexCenter md:hidden cursor-pointer" onClick={() => {}}>
             <Image src={images.logo02} objectFit="contain" width={50} height={50} alt="logo" />
-            <p className="dark:text-white text-nft-black-1 font-extrabold text-3xl ml-2 font-dancingScript">OpenSweeper</p>
+            <p className="dark:text-white text-nft-black-1 font-bold text-3xl ml-2 font-sans-serif">BlockBeatz</p>
           </div>
         </Link>
         <Link href="/">

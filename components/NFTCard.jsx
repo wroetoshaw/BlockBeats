@@ -20,7 +20,7 @@ const NFTCard = ({ nft, onProfilePage }) => {
           <Image src={`/api/imageProxy?imageUrl=${nft.image}` || images[`nft${nft.i}`]} layout="fill" objectFit="cover" alt={`nft${nft.i}`} />
         </div>
         <div className="mt-3 flex flex-col">
-          <p className=" font-cinzelDecorative font-bold text-md minlg:text-lg">{nft.name}</p>
+          <p className=" font-sans-serif font-bold text-md minlg:text-lg">{nft.name}</p>
           <div className="flex justify-between mt-1 minlg:mt-3 flex-row xs:flex-col xs:items-start xs:mt-3">
             <p className=" font-poppins font-normal text-md minlg:text-lg">{nft.price} <span className="normal"> {nftCurrency}</span></p>
             <p className=" font-poppins font-normal text-md minlg:text-lg">{shortenAddress(onProfilePage ? nft.owner : nft.seller) } </p>
