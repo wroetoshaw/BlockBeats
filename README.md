@@ -85,7 +85,7 @@ To get a local copy of **BlockBeatz** up and running, please follow these steps.
    ```sh
    npm instal --legacy-peer-deps
    ```
---legacy-peer-deps is a command line option that can be used with npm install or npm update to allow installation or update of packages with peer dependencies that are not compatible with the current version of npm.
+    --legacy-peer-deps is a command line option that can be used with npm install or npm update to allow installation or update of packages with peer           dependencies that are not compatible with the current version of npm.
 
 3. Initialize tailwindcss
    ```sh
