@@ -17,9 +17,12 @@ const PaymentBodyCmp = ({ nft, nftCurrency }) => (
       <div className="flex-1 flexStartCenter">
         <div className="relative w-28 h-28">
           <Image src={`/api/imageProxy?imageUrl=${nft.image}`} layout="fill" objectFit="cover" />
+
         </div>
+
         <div className="flexCenterStart flex-col ml-5">
           <p className="font-poppins dark:text-white text-nft-black font-semibold text-sm minlg:text-xl">{shortenAddress(nft.seller)}</p>
+
           <p className="font-poppins dark:text-white text-nft-black font-semibold text-sm minlg:text-xl">{nft.name}</p>
         </div>
       </div>
@@ -64,6 +67,8 @@ const NFTDetails = () => {
       <div className="relative flex-1 flexCenter sm:px-4 p-12 border-r md:border-r-0 md:border-b dark:border-nft-black-1 border-nft-gray-1">
         <div className="relative w-557 minmd:w-2/3 minmd:h-2/3 sm:w-full sm:h-300 h-557">
           <Image src={`/api/imageProxy?imageUrl=${nft.image}`} objectFit="cover" className="rounder-xl shadow-lg" layout="fill" />
+                    <audio className="absolute mx-auto bottom-0 w-full h-[50px]" src={nft.audio} controls />
+
         </div>
       </div>
       <div className="flex-1 justify-start sm:px-4 p-12 sm:pb-4">

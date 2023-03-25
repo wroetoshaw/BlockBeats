@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
-import ReactAudioPlayer from "react-audio-player";
+// import ReactAudioPlayer from "react-audio-player";
 
 // import { create } from 'ipfs-http-client';
 
@@ -60,12 +60,12 @@ export const NFTProvider = ({ children }) => {
     window.location.reload();
   };
 
-  const uploadToIPFS = async (files, setFileURL) => {
+  const uploadToIPFS = async (files) => {
     try {
       const cid = await client.put(files);
-      const url = `https://${cid}.ipfs.w3s.link/${files[0].name}`;
+      const url = `https://${cid}.ipfs.w3s.link/${files[0].name}/`;
       console.log('stored files with cid:', cid);
-      console.log(url);
+      console.log('url storged: '+ url);
       return url;
     } catch (e) {
       alert('Max file size is 5MB!');
@@ -88,19 +88,20 @@ export const NFTProvider = ({ children }) => {
     setIsLoadingNFT(true);
     await transaction.wait();
   };
-
-  const createNFT = async (formInput, fileURL, router, fileID) => {
+    
+  const createNFT = async (formInput, imageFileURL, router, imageFileID, musicFileURL) => {
     const { name, description, price } = formInput;
 
-    if (!name || !description || !price || !fileURL) return;
+    if (!name || !description || !price || !imageFileURL || !musicFileURL) return;
+    
+        const data = new Blob([JSON.stringify({ name, description, price, image: imageFileURL, audio: musicFileURL , imageFileID})], { type: 'application/json' });
 
-    const data = new Blob([JSON.stringify({ name, description, price, image: fileURL, fileID })], { type: 'application/json' });
+    const files = [new File([data] , imageFileID)];
 
-    const files = [new File([data], fileID)];
     try {
-      const added = await client.put(files);
-      console.log('FILE ID: ', fileID);
-      const url = `https://${added}.ipfs.w3s.link/${fileID}`;
+      const cid = await client.put(files);
+      console.log('FILE ID: ', imageFileID);
+      const url = `https://${cid}.ipfs.w3s.link/${imageFileID}`;
 
       await createSale(url, price);
       router.push('/');
@@ -108,76 +109,105 @@ export const NFTProvider = ({ children }) => {
     } catch (e) {
       console.log('Error uploading file to IPFS', e);
       return false;
-    }
-  };
+    };
+  }
 
-  const fetchNFTs = async () => {
-    setIsLoadingNFT(false);
-    const provider = new ethers.providers.JsonRpcProvider();
-    // const provider = ethers.getDefaultProvider('goerli');
-    const contract = fetchContract(provider);
-    try {
-      const data = await contract.fetchMarketItems();
+  //
+const fetchNFTs = async () => {
+  setIsLoadingNFT(false);
+  const provider = new ethers.providers.JsonRpcProvider();
+  const contract = fetchContract(provider);
 
-      const items = await Promise.all(data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
-        const tokenURI = await contract.tokenURI(tokenId);
-        const { data: { image, name, description } } = await axios.get(tokenURI);
-        const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+  try {
+          const data = await contract.fetchMarketItems();
 
-        return {
-          price,
-          tokenId: tokenId.toNumber(),
-          seller,
-          owner,
-          image,
-          name,
-          description,
-          tokenURI,
-        };
-      }));
-      return items;
-    } catch (e) {
-      console.log('No market items: ', e);
-      return [];
-    }
-  };
+    const items = await Promise.all(data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+      const tokenURI = await contract.tokenURI(tokenId);
+      const { data: { image, name, description, audio } } = await axios.get(tokenURI);
+      const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
 
-  const fetchMyNFTsOrListedNFTs = async (type) => {
-    // https://www.npmjs.com/package/web3modal
-    setIsLoadingNFT(false);
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    // const provider = new ethers.providers.Web3Provider(connection);
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+      return {
+        price,
+        tokenId: tokenId.toNumber(),
+        seller,
+        owner,
+        image,
+        audio,
+        name,
+        description,
+        tokenURI,
+      };
+    }));
 
-    const contract = fetchContract(signer);
-    try {
-      const data = type === 'fetchItemsListed' ? await contract.fetchItemsListed() : await contract.fetchMyNfts();
+    return items;
+  } catch (e) {
 
-      const items = await Promise.all(data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
-        const tokenURI = await contract.tokenURI(tokenId);
-        const { data: { image, name, description } } = await axios.get(tokenURI);
-        const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+    console.log('Error fetching market items: ', e);
+    return [];
+  }
+};
 
-        return {
-          price,
-          tokenId: tokenId.toNumber(),
-          seller,
-          owner,
-          image,
-          name,
-          description,
-          tokenURI,
-        };
-      }));
-      return items;
-    } catch (e) {
-      console.log('No items listed: ', e);
-      return [];
-    }
-  };
+const fetchMyNFTsOrListedNFTs = async (type) => {
+  setIsLoadingNFT(false);
+  const web3Modal = new Web3Modal();
+  const connection = await web3Modal.connect();
+  const provider = new ethers.providers.Web3Provider(connection);
+  const signer = provider.getSigner();
+  const contract = fetchContract(signer);
 
+  try {
+    const data = type === 'fetchItemsListed' ? await contract.fetchItemsListed() : await contract.fetchMyNfts();
+    const items = await Promise.all(data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+      const tokenURI = await contract.tokenURI(tokenId);
+      const { data: { image, name, description, audio } } = await axios.get(tokenURI);
+      const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+
+      return {
+        price,
+        tokenId: tokenId.toNumber(),
+        seller,
+        owner,
+        image,
+        audio,
+        name,
+        description,
+        tokenURI,
+      };
+    }));
+
+    return items;
+  } catch (e) {
+    const data = type === 'fetchItemsListed' ? await contract.fetchItemsListed() : await contract.fetchMyNfts();
+    console.log(`data: $` + data);
+    const items = await Promise.all(data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+      const tokenURI = await contract.tokenURI(tokenId);
+      console.log(`token: ` + tokenURI);
+      const { data: { image, name, description, audio } } = await axios.get(tokenURI);
+      console.log(`image: ` + image);
+      console.log(`audio: ` + audio);
+        
+
+
+
+      const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+
+      return {
+        price,
+        tokenId: tokenId.toNumber(),
+        seller,
+        owner,
+        image,
+        audio,
+        name,
+        description,
+        tokenURI,
+      };
+    }));
+    console.log('No items listed: ', e);
+    return [];
+  }
+};
+  
   const buyNFT = async (nft) => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();

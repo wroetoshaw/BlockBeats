@@ -11,46 +11,105 @@ import Input from '../components/Input';
 import { NFTContext } from '../context/NFTContext';
 
 const CreateNFT = () => {
-  const [fileUrl, setFileUrl] = useState(null);
-  const [fileID, setFileID] = useState(null);
+  const [imageFileURL, setimageFileURL] = useState(null);
+  const [musicFileURL, setmusicFileURL] = useState(null);
+    const [imageFileID, setimageFileID] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // const [fileUrl, setFileUrl] = useState(null);
+  // const [fileID, setFileID] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
+
   const { theme } = useTheme();
   const [formInput, setFormInput] = useState({ price: '', name: '', description: '' });
   const { uploadToIPFS, createNFT, isLoadingNFT } = useContext(NFTContext);
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
   const [creationSuccessful, setcreationSuccessful] = useState(true);
 
-  // useEffect(() => {
-  //   setcreationSuccessful(false);
-  // }, [creationSuccessful]);
+  // const onDrop = useCallback(async (acceptedFiles) => {
+  //   setIsLoading(true);
+  //   const url = await uploadToIPFS(acceptedFiles);
+  //   setIsLoading(false);
+  //   try {
+  //     setFileUrl(url);
+  //     setFileID(url.substring(url.indexOf('/') + 2, url.indexOf('.')));
+  //   } catch (e) {
+  //     console.log('Max file size exceeded', e);
+  //   }
+  // }, []);
+    
+  // const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
+  //   onDrop,
+  //   accept: 'image/*',
+  //   maxSize: 5000000,
+  // });
 
-  const onDrop = useCallback(async (acceptedFiles) => {
-    setIsLoading(true);
+
+useEffect(() => {
+  if (imageFileID) {
+    console.log(`image ` + imageFileID);
+  }
+}, [imageFileID]);
+
+  const onImageDrop = useCallback(async (acceptedFiles) => {
+  setIsLoading(true);
     const url = await uploadToIPFS(acceptedFiles);
-    setIsLoading(false);
-    try {
-      setFileUrl(url);
-      setFileID(url.substring(url.indexOf('/') + 2, url.indexOf('.')));
-    } catch (e) {
-      console.log('Max file size exceeded', e);
-    }
-  }, []);
+        console.log(url);
 
-  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
-    onDrop,
-    accept: 'image/*',
-    maxSize: 5000000,
-  });
+  try {
+    setimageFileURL(url);
+    setimageFileID(url.substring(url.indexOf('/') + 2, url.indexOf('.')));
+    console.log(`image `+ imageFileID);
+  } catch (e) {
+    console.log('Max file size exceeded', e);
+  }
+      setIsLoading(false);
+
+}, []);
+
+const onAudioDrop = useCallback(async (acceptedFiles) => {
+  setIsLoading(true);
+  const url = await uploadToIPFS(acceptedFiles,);
+        console.log(url);
+
+  setIsLoading(false);
+  try {
+    setmusicFileURL(url);
+  } catch (e) {
+    console.log('Max file size exceeded', e);
+  }
+}, []);
+
+const { getRootProps: getRootImageProps, getInputProps: getInputImageProps, isDragActive: isImageDragActive, isDragAccept: isImageDragAccept, isDragReject: isImageDragReject } = useDropzone({
+  onDrop: onImageDrop,
+  accept: 'image/*',
+  maxSize: 5000000,
+});
+
+const { getRootProps: getRootAudioProps, getInputProps: getInputAudioProps, isDragActive: isAudioDragActive, isDragAccept: isAudioDragAccept, isDragReject: isAudioDragReject } = useDropzone({
+  onDrop: onAudioDrop,
+  accept: 'audio/*',
+  maxSize: 5000000,
+});
+
+ 
 
   console.log(formInput);
 
-  const fileStyle = useMemo(() => (
+  const imageStyle = useMemo(() => (
     `dark:bg-nft-black-1 bg:white border dark:border-white border-nft-gray-2 flex flex-col items-center p-5 rounded-sm border-dashed 
-    ${isDragActive ? 'border-file-active' : undefined}
-    ${isDragAccept ? 'border-file-accept' : undefined}
-    ${isDragReject ? 'border-file-reject' : undefined}`
-  ), [isDragActive, isDragAccept, isDragReject]);
+    ${isImageDragActive ? 'border-file-active' : undefined}
+    ${isImageDragAccept ? 'border-file-accept' : undefined}
+    ${isImageDragReject ? 'border-file-reject' : undefined}`
+  ), [isImageDragActive, isImageDragAccept, isImageDragReject]);
+
+    const audioStyle = useMemo(() => (
+    `dark:bg-nft-black-1 bg:white border dark:border-white border-nft-gray-2 flex flex-col items-center p-5 rounded-sm border-dashed 
+    ${isAudioDragActive ? 'border-file-active' : undefined}
+    ${isAudioDragAccept ? 'border-file-accept' : undefined}
+    ${isAudioDragReject ? 'border-file-reject' : undefined}`
+  ), [isAudioDragActive, isAudioDragAccept, isAudioDragReject]);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -59,13 +118,13 @@ const CreateNFT = () => {
         <div className="mt-16">
           <p className="font-cinzelDecorative dark:text-white text-nft-black-1 font-bold text-xl">Upload File</p>
           <div className="mt-4">
-            <div {...getRootProps()} className={fileStyle}>
-              <input {...getInputProps()} />
+            <div {...getRootImageProps()} className= {imageStyle}>
+              <input {...getInputImageProps()} />
               <div className="flex-center flex-col text-center">
                 {!isLoading ? (
                   <>
                     <p className=" font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">JPG, PNG, GIF, SVG, WEBM. Max 5Mb.</p>
-                    <div className="my-12 w-full flex justify-center">
+                    <div className="my-12 w-full flex flex-col justify-center">
                       <Image
                         src={images.upload}
                         width={100}
@@ -81,13 +140,36 @@ const CreateNFT = () => {
                 ) : <Loader /> }
               </div>
             </div>
-            {fileUrl && (
+            {imageFileURL && (
               <aside>
                 <div>
-                  <img src={fileUrl} alt="asset_file" />
+                  <img src={imageFileURL} alt="asset_file" />
                 </div>
               </aside>
             )}
+          </div>
+
+        </div>
+        <div className="mt-16">
+          <p className="font-cinzelDecorative dark:text-white text-nft-black-1 font-bold text-xl">Upload File</p>
+          <div className="mt-4">
+            <div {...getRootAudioProps()} className= {audioStyle}>
+              <input {...getInputAudioProps()} />
+              <div className="flex-center flex-col text-center">
+                {!isLoading ? (
+                  <>
+                    <p className="text-xl font-bold mb-4">Drop your audio file here</p>
+                    <p className="text-lg mb-4">Acceptable file types: mp3, wav, ogg</p>
+                    <p className="text-lg mb-4">Max file size: 5MB</p>
+                    {isAudioDragReject && <p className="text-red-500 font-bold">File type not accepted or file too large</p>}
+                  </>
+                ) : <Loader /> }
+              </div>
+            </div>
+            {musicFileURL && <p className="mt-4 text-lg font-bold">Uploaded audio file: {musicFileURL}</p>}
+                        <audio className="relative mx-auto mt-5 w-50% h-[50px]" src={musicFileURL} controls />
+
+
           </div>
 
         </div>
@@ -95,7 +177,7 @@ const CreateNFT = () => {
           inputType="input"
           title="Name"
           placeholder="NFT Name"
-          handleClick={(e) => { setFormInput({ ...formInput, name: e.target.value }); }}
+          handleClick={(e) => { setFormInput({ ...formInput, name: e.target.value });}}
         />
         <Input
           inputType="textarea"
@@ -114,7 +196,7 @@ const CreateNFT = () => {
             btnName="Create NFT"
             className="rounded-xl"
             handleClick={async () => {
-              const created = await createNFT(formInput, fileUrl, router, fileID);
+              const created = await createNFT(formInput, imageFileURL, router, imageFileID , musicFileURL );
               if (!created) {
                 console.log('Not created');
                 setcreationSuccessful(false);

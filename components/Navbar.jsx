@@ -99,13 +99,13 @@ const Navbar = () => {
       <div className="flex flex-1 flex-row justify-start">
         <Link href="/">
           <div className="flexCenter md:hidden cursor-pointer" onClick={() => {}}>
-            <Image src={images.logo02} objectFit="contain" width={50} height={50} alt="logo" />
+            <Image src={images.nft6} objectFit="contain" width={60} height={60} alt="logo" className='rounded-full'/>
             <p className="dark:text-white text-nft-black-1 font-bold text-3xl ml-2 font-sans-serif">BlockBeatz</p>
           </div>
         </Link>
         <Link href="/">
           <div className="hidden md:flex" onClick={() => { setActive('Explore NFTs'); setIsOpen(false); }}>
-            <Image src={images.logo02} objectFit="contain" width={32} height={32} alt="logo" />
+            <Image src={images.nft6} objectFit="contain" width={50} height={50} alt="logo" />
           </div>
 
         </Link>

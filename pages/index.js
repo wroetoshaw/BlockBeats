@@ -1,96 +1,99 @@
-// EXPLORE NFT's (Home Page)
+// EXPLORE NFT's (Home Page)// EXPLORE NFT's (Home Page)
 import Image from 'next/image';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { useTheme } from 'next-themes';
 import { Banner, CreatorCard, NFTCard, SearchBar, Loader } from '../components';
-
 import { NFTContext } from '../context/NFTContext';
-import images from '../assets';
 import { makeId } from '../utils/makeId';
 import { getCreators } from '../utils/getTopCreators';
 import { shortenAddress } from '../utils/shortenAddress';
 
-const Home = () => {
-  const [hideButtons, setHideButtons] = useState(false);
-  const [isLoading, setisLoading] = useState(true);
-  const [nfts, setNfts] = useState([]);
-  const [nftsCopy, setNftsCopy] = useState([]);
-  const [activeSelect, setActiveSelect] = useState('Recently Listed');
-  const { fetchNFTs } = useContext(NFTContext);
-  const parentRef = useRef(null);
-  const scrollRef = useRef(null);
-  const { theme } = useTheme();
+import images from '../assets';
 
-  useEffect(() => {
-    fetchNFTs().then((items) => {
-      setNfts(items);
-      setNftsCopy(items);
-      setisLoading(false);
-    });
-  }, []);
-  useEffect(() => {
-    const sortedNfts = [...nfts];
+const Home = () => {
+const [hideButtons, setHideButtons] = useState(false);
+const [isLoading, setIsLoading] = useState(true);
+const [nfts, setNfts] = useState([]);
+const [nftsCopy, setNftsCopy] = useState([]);
+const [activeSelect, setActiveSelect] = useState('Recently Listed');
+const { fetchNFTs } = useContext(NFTContext);
+const parentRef = useRef(null);
+const scrollRef = useRef(null);
+const { theme } = useTheme();
+
+useEffect(() => {
+fetchNFTs().then((items) => {
+setNfts(items);
+setNftsCopy(items);
+setIsLoading(false);
+});
+}, []);
+
+useEffect(() => {
+  const sortedNfts = [...nfts];
+
 
     switch (activeSelect) {
-      case 'Price (low to high)':
-        setNfts(sortedNfts.sort((a, b) => a.price - b.price));
-        break;
-      case 'Price (high to low)':
-        setNfts(sortedNfts.sort((a, b) => b.price - a.price));
-        break;
-      case 'Recently added':
-        setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
-        break;
-      default:
-        setNfts(nfts);
-        break;
-    }
-  }, [activeSelect]);
-  const onHandleSearch = (value) => {
-    const filteredNFTs = nfts.filter((nft) => nft.name.toLowerCase().includes(value.toLowerCase()));
-    if (filteredNFTs.length) {
-      setNfts(filteredNFTs);
-    } else {
-      setNfts(nftsCopy);
-    }
-  };
-  const onClearSearch = () => {
-    if (nfts.length && nftsCopy.length) {
-      setNfts(nftsCopy);
-    }
-  };
+  case 'Price (low to high)':
+    setNfts(sortedNfts.sort((a, b) => a.price - b.price));
+    break;
+  case 'Price (high to low)':
+    setNfts(sortedNfts.sort((a, b) => b.price - a.price));
+    break;
+  case 'Recently added':
+    setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
+    break;
+  default:
+    setNfts(nfts);
+    break;
+}
+  }, [activeSelect, nfts]);
 
-  const handleScroll = (direction) => {
-    const { current } = scrollRef;
-    const scrollAmount = window.innerWidth > 1800 ? 270 : 210;
+const onHandleSearch = (value) => {
+const filteredNFTs = nftsCopy.filter((nft) => nft.name.toLowerCase().includes(value.toLowerCase()));
+if (filteredNFTs.length) {
+setNfts(filteredNFTs);
+} else {
+setNfts(nftsCopy);
+}
+};
+
+const onClearSearch = () => {
+if (nfts.length && nftsCopy.length) {
+setNfts(nftsCopy);
+}
+};
+
+const handleScroll = (direction) => {
+const { current } = scrollRef;
+const scrollAmount = window.innerWidth > 1800 ? 270 : 210;
 
     if (direction === 'left') {
-      current.scrollLeft -= scrollAmount;
-    }
-    if (direction === 'right') {
-      current.scrollLeft += scrollAmount;
-    }
+  current.scrollLeft -= scrollAmount;
+}
+if (direction === 'right') {
+  current.scrollLeft += scrollAmount;
+}
   };
 
   const isScrollable = () => {
-    const { current } = scrollRef;
-    const { current: parent } = parentRef;
-    // console.log(`LEARNING CURRENT ?,${current},${current.scrollWidth}`);
-    if (current && current.scrollWidth >= parent.offsetWidth) {
-      setHideButtons(false);
-    } else {
-      setHideButtons(true);
-    }
-  };
+const { current } = scrollRef;
+const { current: parent } = parentRef;
+if (current && current.scrollWidth >= parent.offsetWidth) {
+setHideButtons(false);
+} else {
+setHideButtons(true);
+}
+};
 
   useEffect(() => {
-    isScrollable();
-    window.addEventListener('resize', isScrollable);
+isScrollable();
+window.addEventListener('resize', isScrollable);
 
     return () => {
-      window.removeEventListener('resize', isScrollable);
-    };
-  });
+  window.removeEventListener('resize', isScrollable);
+};
+ }, []);
 
   const topCreators = getCreators(nftsCopy);
   console.log(topCreators);
