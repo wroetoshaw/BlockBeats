@@ -180,6 +180,7 @@ NODE: Keep other terminals running.
 - [x] Add the List Music section
 - [x] Add the Top Artists section
 - [ ] Artist Events
+- [ ] Public network deployement
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
