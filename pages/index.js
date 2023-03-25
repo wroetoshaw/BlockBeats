@@ -105,8 +105,10 @@ window.addEventListener('resize', isScrollable);
         <Banner
           parentStyles="justify-center mb-6 h-72 sm:h-60 p-12 xs:p-4 xs:h-44 rounded-3xl"
           childStyles="md:text-4xl sm:text-2xl xs-xl text-center"
-          name="Scour  OpenSea  for  the  rarest  nft's"
-        />
+          name="Revolutionizing the Music!"/>
+
+
+
         {!isLoading && !nfts.length ? (
           <h1 className=" font-cinzelDecorative dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">No treasures be found!</h1>
         ) : isLoading ? <Loader />
