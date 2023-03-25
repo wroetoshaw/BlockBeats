@@ -128,15 +128,15 @@ To get a local copy of **BlockBeatz** up and running, please follow these steps.
 ## Metamask Setup
 
 1.  To test the application, you can import the accounts created by the node into your Metamask wallet. These accounts are pre-funded with 10000 ETH. To import one of these accounts, you need to switch your Metamask wallet network to Localhost 8545.
-     [![Product Name Screen Shot](assets/meta1.jpg)](assets/meta1.jpg)
+     [![Product Name Screen Shot](assets/meta1.jpeg)](assets/meta1.jpeg)
 
      
 2.  Next, in MetaMask click on Import Account from the accounts menu:
-     [![Product Name Screen Shot](assets/meta2.jpg)](assets/meta2.jpg)
+     [![Product Name Screen Shot](assets/meta2.jpeg)](assets/meta2.jpeg)
 
      
 3.  Copy then paste one of the Private Keys logged out by the CLI and click Import. Once the account is imported, you should see some the Eth in the account:
-     [![Product Name Screen Shot](assets/meta3.jpg)](assets/meta3.jpg)
+     [![Product Name Screen Shot](assets/meta3.jpeg)](assets/meta3.jpeg)
 
      
 4.  It is recommended to use 2 or 3 accounts when importing them into your Metamask wallet so that you can test the different functionalities available between users.
