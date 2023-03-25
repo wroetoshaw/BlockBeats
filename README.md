@@ -51,7 +51,7 @@ The application is built using Next.js, which provides fast and efficient server
 With **BlockBeatz**, fans can support their favorite artists by purchasing unique digital assets that are authenticated on the blockchain. This not only provides a way for fans to connect with the music and each other but also ensures that artists are fairly compensated for their work.
 
 
-### Built With
+## Built With
 
 - Hardhat Network
 - Next.js
@@ -68,13 +68,13 @@ With **BlockBeatz**, fans can support their favorite artists by purchasing uniqu
 
 To get a local copy of **BlockBeatz** up and running, please follow these steps.
 
-### Prerequisites
+## Prerequisites
 <ol>
 <li>Node.js version 16.14.0 or greater installed on your machine. I recommend installing Node using either nvm or fnm.</li>
 <li> Metamask wallet extension installed as a browser extension </li>
 </ol>
 
-### Installation
+## Installation
 
 1. Clone the repo
 
@@ -125,18 +125,18 @@ To get a local copy of **BlockBeatz** up and running, please follow these steps.
    ```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Metamask Setup
+## Metamask Setup
 
 1.  To test the application, you can import the accounts created by the node into your Metamask wallet. These accounts are pre-funded with 10000 ETH. To import one of these accounts, you need to switch your Metamask wallet network to Localhost 8545.
-     [![Product Name Screen Shot](assets/meta1.png)](assets/meta1.png)
+     [![Product Name Screen Shot](assets/meta1.jpg)](assets/meta1.jpg)
 
      
 2.  Next, in MetaMask click on Import Account from the accounts menu:
-     [![Product Name Screen Shot](assets/meta2.png)](assets/meta2.png)
+     [![Product Name Screen Shot](assets/meta2.jpg)](assets/meta2.jpg)
 
      
 3.  Copy then paste one of the Private Keys logged out by the CLI and click Import. Once the account is imported, you should see some the Eth in the account:
-     [![Product Name Screen Shot](assets/meta3.png)](assets/meta3.png)
+     [![Product Name Screen Shot](assets/meta3.jpg)](assets/meta3.jpg)
 
      
 4.  It is recommended to use 2 or 3 accounts when importing them into your Metamask wallet so that you can test the different functionalities available between users.
