@@ -100,14 +100,17 @@ To get a local copy of **BlockBeatz** up and running, please follow these steps.
    npx hardhat test
    ```
    If the test runs successfully, it should log out an array containing the two marketplace items.
-   <img src="assets/npxtest.jpeg" alt="Logo" width="80" height="80">
+           [![Product Name Screen Shot](assets/npxtest.jpeg)](assets/npxtest.jpeg)
+
    
 6. To spin up a local network, open your terminal and run the following command:
    ```sh
    npx hardhat node
    ```
    This should create a local network with 20 accounts.
-   <img src="assets/node.png" alt="Logo" width="80" height="80">
+        [![Product Name Screen Shot](assets/node.png)](assets/node.png)
+
+   
    Next, keep the node running and open a separate terminal window to deploy the contract.
 
 7. In a separate window, run the following command:
@@ -125,18 +128,22 @@ To get a local copy of **BlockBeatz** up and running, please follow these steps.
 ### Metamask Setup
 
 1.  To test the application, you can import the accounts created by the node into your Metamask wallet. These accounts are pre-funded with 10000 ETH. To import one of these accounts, you need to switch your Metamask wallet network to Localhost 8545.
-     <img src="assets/meta1.png" alt="Logo" width="80" height="80">
+     [![Product Name Screen Shot](assets/meta1.png)](assets/meta1.png)
+
      
 2.  Next, in MetaMask click on Import Account from the accounts menu:
-     <img src="assets/meta2.png" alt="Logo" width="80" height="80">
+     [![Product Name Screen Shot](assets/meta2.png)](assets/meta2.png)
+
      
 3.  Copy then paste one of the Private Keys logged out by the CLI and click Import. Once the account is imported, you should see some the Eth in the account:
-     <img src="assets/meta3.png" alt="Logo" width="80" height="80">
+     [![Product Name Screen Shot](assets/meta3.png)](assets/meta3.png)
+
      
 4.  It is recommended to use 2 or 3 accounts when importing them into your Metamask wallet so that you can test the different functionalities available between users.
 
 5.  If you dont have local rpc setup go to add network and add rpc link and chain id:1337
-      <img src="assets/addmeta.png" alt="Logo" width="80" height="80">
+      [![Product Name Screen Shot](assets/addmeta.png)](assets/addmeta.png)
+
 
 
 ##  Running the app
