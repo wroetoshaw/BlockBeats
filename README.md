@@ -118,8 +118,10 @@ To get a local copy of **BlockBeatz** up and running, please follow these steps.
    npx hardhat run scripts/deploy.js --network localhost
    ```
    When the deployment is complete, the CLI should print out the address of the contract that was deployed.
-   <img src="assets/host.png" alt="Logo" width="80" height="80">
+           [![Product Name Screen Shot](assets/host.png)](assets/host.png)
+
    update constants.js file
+   
    ```sh
    export const MarketAddress = '';
    ```
