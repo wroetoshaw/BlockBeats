@@ -1,0 +1,11 @@
+Model Information:
+* title:	#RTJ4D Sofubi
+* source:	https://sketchfab.com/3d-models/rtj4d-sofubi-d4f240bbe6f34bb29827adcaa60d82c1
+* author:	Sliviz (https://sketchfab.com/sliviz)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "#RTJ4D Sofubi" (https://sketchfab.com/3d-models/rtj4d-sofubi-d4f240bbe6f34bb29827adcaa60d82c1) by Sliviz (https://sketchfab.com/sliviz) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
