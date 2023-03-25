@@ -150,12 +150,12 @@ NODE: Keep other terminals running.
 
 ## Screenshots
 
-[![Product Name Screen Shot](images/ss1.png)](images/ss1.png)
-[![Product Name Screen Shot](images/ss2.png)](images/ss2.png)
+[![Product Name Screen Shot](assets/ss1.png)](assets/ss1.png)
+[![Product Name Screen Shot](assets/ss2.png)](assets/ss2.png)
 
 
-<!-- [![Product Name Screen Shot](images/ss1.png)](images/ss1.png) -->
-<!-- [![Product Name Screen Shot](images/ss2.png)](images/ss2.png) -->
+<!-- [![Product Name Screen Shot](assets/ss1.png)](assets/ss1.png) -->
+<!-- [![Product Name Screen Shot](assets/ss2.png)](assets/ss2.png) -->
 
 
 
