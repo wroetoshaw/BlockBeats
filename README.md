@@ -2,17 +2,18 @@
 <br />
 <div align="center">
     <img src="assets/creator1.png" alt="Logo" width="80" height="80">
-
-  <h3 align="center">BlockBeatz</h3>
-
+</div>
+<div>
+  <h3 align="center">BlockBeatz<h3>
   <p align="center">
   A decentralized music owning platform built with Polygon. Power to the musicians.
     <br />
-    <a href="#">View Website </a>
-    <br />
-    <a href="#">View Smart Contract</a>
+    <a href="https://blockbeatz.netlify.app/">View Demo</a>
+    ·
+    <a href="https://github.com/wroetoshaw/BlockBeats/issues">Request Feature</a>
   </p>
 </div>
+
 
 <!-- TABLE OF CONTENTS -->
 <details>
